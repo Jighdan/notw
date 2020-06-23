@@ -1,5 +1,3 @@
-import argparse
-import sys
 from note_class import Note
 import database_manager
 
