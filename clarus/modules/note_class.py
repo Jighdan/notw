@@ -17,7 +17,7 @@ class Note:
 		generate_identity = uuid.uuid4()
 		return generate_identity
 
-	def packed(self):
+	def __repr__(self):
 		note = dict()
 		note["content"] = self.content
 		note["timestamp"] = self.timestamp
