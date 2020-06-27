@@ -1,28 +1,26 @@
 import argparse
-from blessings import Terminal
-from modules.note_class import Note
-from modules import database_manager
-
-# initializes terminal
-term = Terminal()
+import sys
+from managers import database_manager as database
+from managers import database_translator as translator
+from managers import presentation as present
 
 # sets parser and adds arguments
-PARSER = argparse.ArgumentParser(description="Notes & Tasker App")
-PARSER.add_argument("-n", "--new", dest="new_note", help="Adds a new note")
-args = PARSER.parse_args()
+parser = argparse.ArgumentParser(description="Notes & Tasker App")
+parser.add_argument("-n", "--new", type=str, dest="new_note", help="Adds a new note")
+parser.add_argument("-d", "--delete", type=int, dest="delete_note", help="Deletes a note")
+parser.add_argument("-u", "--update", type=int, dest="update_note", help="Updates a note content")
+parser.add_argument("-c", "--content", type=str, dest="new_content", required="--update" in sys.argv)
 
-def present_tasks():
-	data = database_manager.raw_load_all()
-	for index, item in enumerate(data):
-		content = item["content"]
-		timestamp = item["timestamp"]
-		is_completed = "~" if item["is_completed"] else " "
-
-		print(f"{str(index)}. {term.bold(content)}")
-
+args = parser.parse_args()
 
 if __name__ == '__main__':
-	if args.new_note:
-		database_manager.save(Note(args.new_note))
+	present.show_all()
 
-	present_tasks()
+	if argument := args.new_note:
+		database.add_data(argument)
+
+	if argument := args.delete_note:
+		translator.delete_note(argument)
+	
+	if argument := args.update_note:
+		translator.update_note(argument, args.new_content)
