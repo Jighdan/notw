@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from .tools.note_class import Note
+from .tools.note_class import construct_note
 
 # database paths and name
 db_filename, db_name = "notes.db", "allNotes"
@@ -17,6 +17,7 @@ cursor.execute(f"CREATE TABLE IF NOT EXISTS {db_name}({fields})")
 
 # back-end controllers
 def raw_load_all():
+	cursor = connection.cursor()
 	cursor.execute(select_all)
 	raw_load = [list(item) for item in cursor.fetchall()]
 	cursor.close()
@@ -25,12 +26,10 @@ def raw_load_all():
 raw_load = raw_load_all()
 
 # user interfance controllers
-def add_data(raw_data):
-	note = Note(raw_data).pack()
-	identity = note["identity"]
-	content = note["content"]
-	unixstamp = note["unixstamp"]
-	is_completed = note["is_completed"]
+def add_data(note_content):
+	note = construct_note(note_content)
+	identity, content = note.identity, note.content
+	unixstamp, is_completed = note.unixstamp, note.is_completed
 	cursor.execute(f"INSERT INTO {db_name} VALUES (?, ?, ?, ?)", (identity, content, unixstamp, is_completed))
 	connection.commit()
 

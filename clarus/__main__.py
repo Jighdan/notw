@@ -21,12 +21,9 @@ if __name__ == '__main__':
 
 	if argument := args.new_note:
 		database.add_data(argument)
-		show_all()
 
 	if argument := args.delete_note:
 		translator.delete_note(argument)
-		show_all()
 	
 	if argument := args.update_note:
 		translator.update_note(argument, args.new_content)
-		show_all()

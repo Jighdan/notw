@@ -1,6 +1,6 @@
 import time
-import collections
 from . import database_manager as database
+from .tools.note_class import Note
 
 # conversors
 def convert_status(status):
@@ -10,11 +10,11 @@ def convert_status(status):
 
 # data modeling
 def model_data():
-	Note = collections.namedtuple("Note", ["identity", "content", "unixstamp", "is_completed"])
 	data = []
 	for item in database.raw_load:
-		item[-1] = convert_status(item[-1])
-		item = Note(item[0], item[1], item[2], item[3])
+		identity, content, unixstamp, status = item
+		status = convert_status(status)
+		item = Note(identity, content, unixstamp, is_completed)
 		data.append(item)
 	return data
 

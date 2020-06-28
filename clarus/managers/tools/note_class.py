@@ -1,24 +1,19 @@
+from collections import namedtuple
 from datetime import datetime
 import uuid
 
-class Note:
-	def __init__(self, content):
-		self.identity = self.__set_identity()
-		self.content = content
-		self.unixstamp = datetime.utcnow()
-		self.is_completed = False
+# generators
+generate_identity = lambda : str(uuid.uuid4())
+generate_unixstamp = lambda : datetime.utcnow()
 
-	def __repr__(self):
-		return self.content
+# note deconstructor
+Note = collections.namedtuple("Note", ["identity", "content", "unixstamp", "is_completed"])
 
-	def pack(self):
-		note = dict()
-		note["identity"] = self.identity
-		note["content"] = self.content
-		note["unixstamp"] = self.unixstamp
-		note["is_completed"] = self.is_completed
-		return note
-
-	def __set_identity(self):
-		generate_identity = uuid.uuid4()
-		return str(generate_identity)
+def construct_note(note_content):
+	identity = generate_identity()
+	content = note_content
+	unixstamp = generate_unixstamp()
+	is_completed = False
+	structured = Note(identity, content, unixstamp, is_completed)
+	return structured
+	
