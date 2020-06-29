@@ -7,13 +7,12 @@ db_filename, db_name = "notes.db", "allNotes"
 db_path = os.path.join(os.getcwd(), db_filename)
 # initializes the database and cursor for raw loading
 connection = sqlite3.connect(db_path)
-cursor = connection.cursor()
 # database fields
-fields = "identity TEXT, content TEXT, unixstamp TIMESTAMP, is_completed BOOLEAN"
+sql_fields = "identity TEXT, content TEXT, unixstamp TIMESTAMP"
 # common sql queries
 select_all = f"SELECT * FROM {db_name}"
 # creates the database if doesn't exists
-cursor.execute(f"CREATE TABLE IF NOT EXISTS {db_name}({fields})")
+cursor.execute(f"CREATE TABLE IF NOT EXISTS {db_name}({sql_fields})")
 
 # back-end controllers
 def raw_load_all():
@@ -23,14 +22,11 @@ def raw_load_all():
 	cursor.close()
 	return raw_load
 
-raw_load = raw_load_all()
-
 # user interfance controllers
 def add_data(note_content):
 	note = construct_note(note_content)
-	identity, content = note.identity, note.content
-	unixstamp, is_completed = note.unixstamp, note.is_completed
-	cursor.execute(f"INSERT INTO {db_name} VALUES (?, ?, ?, ?)", (identity, content, unixstamp, is_completed))
+	identity, content, unixstamp = note.identity, note.content, note.unixstamp
+	cursor.execute(f"INSERT INTO {db_name} VALUES (?, ?, ?, ?)", (identity, content, unixstamp))
 	connection.commit()
 
 def delete_data(data_identity):
@@ -46,3 +42,6 @@ def update_data(new_content, data_identity):
 	cursor.execute(f"UPDATE {db_name} SET content = '{new_content}' WHERE identity = '{data_identity}'")
 	cursor.close()
 	connection.commit()
+
+# back-end selectors
+raw_load = raw_load_all()
