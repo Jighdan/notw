@@ -1,6 +1,6 @@
 import time
-from .tools.note_class import Note
-import .database_manager as database
+from .tools.note_class import Note, construct_note
+from . import database_manager as database
 
 # data modeling
 def model_data():
@@ -22,6 +22,10 @@ for index, item in enumerate(modeled_data):
 
 # database speakers
 identity_from_index = lambda index : modeled_data[index -1].identity
+
+def add_note(note_content):
+	note = construct_note(note_content)
+	database.add_data(note)
 
 def delete_note(note_index):
 	database.delete_data(identity_from_index(note_index))

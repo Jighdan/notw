@@ -1,6 +1,5 @@
 import os
 import sqlite3
-from .tools.note_class import construct_note
 
 # database paths and name
 db_filename, db_name = "notes.db", "allNotes"
@@ -23,8 +22,7 @@ def raw_load_all():
 	return raw_load
 
 # user interfance controllers
-def add_data(note_content):
-	note = construct_note(note_content)
+def add_data(note):
 	identity, content, unixstamp = note.identity, note.content, note.unixstamp
 	cursor.execute(f"INSERT INTO {db_name} VALUES (?, ?, ?, ?)", (identity, content, unixstamp))
 	connection.commit()
