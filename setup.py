@@ -6,16 +6,11 @@ setup(
     author = "Reinny Almonte",
     author_email = "reynsth@gmail.com",
     description = "A command line note taking app",
-    entry_points = """
-        [console_scripts]
-        notew=notew.__main__:main
-    """
-    ,
+    entry_points = {
+        "console_scripts": [
+            "notew = notew.main:main"
+        ]
+    },
     url = "https://github.com/Jighdan/notew-cli",
-    classifiers = [
-        "Programming Language :: Python :: 3",
-        "License :: GNU :: 3",
-        "Operating System :: OS Independent"
-    ],
     python_requires=">=3.8"
 )

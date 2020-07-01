@@ -40,6 +40,4 @@ def update_data(new_content, data_identity):
 	cursor.execute(f"UPDATE {db_name} SET content = '{new_content}' WHERE identity = '{data_identity}'")
 	cursor.close()
 	connection.commit()
-
-# back-end selectors
-raw_load = raw_load_all()
+	
