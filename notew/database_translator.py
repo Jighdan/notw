@@ -1,6 +1,6 @@
 import time
-from . import database_manager as database
 from .tools.note_class import Note
+import .database_manager as database
 
 # data modeling
 def model_data():
