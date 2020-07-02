@@ -1,16 +1,23 @@
-## Using Pip
+## Configuration
+You can configure the database directory, filename and table name in the `notew/__init__.py` file.
+
+## Installation
+Requires Python>=3.8
+
+### Using Pip
 ```bash
-	$ pip install notew-jighdan
+	$ cd notew
+	$ sh install.sh
 ```
 
-## Manual
+### Manual
 ```bash
 	$ git clone https://github.com/Jighdan/notew-cli
 	$ cd notew-cli
-	$ python setup.py install
+	$ pip install -e . || pip3 install -e .
 ```
 
-# Usage
+## Usage
 
 ```bash
 	$ notew
@@ -24,4 +31,3 @@
 	# updates a note content
 	$ notew -u X "NEW CONTENT HERE"
 ```
-
