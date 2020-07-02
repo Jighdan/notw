@@ -1,6 +1,6 @@
 import time
 from .tools.note_class import Note, construct_note
-import .database_manager as database
+from . import database_manager as database
 
 # data modeling
 def model_data():
@@ -16,12 +16,12 @@ full_log = []
 modeled_data = model_data()
 
 for index, item in enumerate(modeled_data):
-	content = item.content
-	fmt = f"\t{str(index + 1)}{" " * 5}{content}"
+	new_index, content = str(index + 1), item.content
+	fmt = "\t{0}.{2}{1}".format(new_index, content, (" " * 5))
 	full_log.append(fmt)
 
 # database speakers
-get_identity = lambda index : modeled_data[index -1].identity
+get_identity = lambda index : modeled_data[index - 1].identity
 
 def add_note(note_content):
 	note = construct_note(note_content)

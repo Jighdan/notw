@@ -8,9 +8,9 @@ setup(
     description = "A command line note taking app",
     entry_points = {
         "console_scripts": [
-            "notew = notew.main:main"
+            "notew = notew.__main__:main"
         ]
     },
-    url = "https://github.com/Jighdan/notew-cli",
+    url = "https://github.com/Jighdan/notew",
     python_requires=">=3.8"
 )

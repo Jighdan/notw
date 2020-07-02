@@ -1,6 +1,6 @@
 import argparse
 import sys
-import .database_translator as translator
+from . import database_translator as translator
 
 # sets parser and adds arguments
 parser = argparse.ArgumentParser(description="Notes & Tasker App")
