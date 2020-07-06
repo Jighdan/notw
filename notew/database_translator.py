@@ -11,14 +11,14 @@ def model_data():
 		data.append(item)
 	return data
 
-# loads all data
-full_log = []
-modeled_data = model_data()
-
-for index, item in enumerate(modeled_data):
-	new_index, content = str(index + 1), item.content
-	fmt = "\t{0}.{2}{1}".format(new_index, content, (" " * 5))
-	full_log.append(fmt)
+def presentable_data():
+	modeled_data, full_log = model_data(), list()
+	for index, item in enumerate(modeled_data):
+		new_index, content = str(index + 1), item.content
+		fmt = "\t{0}.{2}{1}".format(new_index, content, (" " * 5))
+		full_log.append(fmt)
+	
+	return full_log
 
 # database speakers
 get_identity = lambda index : modeled_data[index - 1].identity
