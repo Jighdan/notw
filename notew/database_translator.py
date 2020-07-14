@@ -1,4 +1,3 @@
-import time
 from .tools.note_class import Note, construct_note
 from . import database_manager as database
 
