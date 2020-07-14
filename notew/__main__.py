@@ -12,9 +12,6 @@ parser.add_argument("-c", "--new_content", type=str, dest="new_content", require
 args = parser.parse_args()
 
 def main():
-	for item in translator.presentable_data():
-		print(item)	
-
 	if argument := args.new_note:
 		translator.add_note(argument)
 
@@ -24,7 +21,10 @@ def main():
 	if argument := args.update_note:
 		translator.update_note(argument, args.new_content)
 
-	translator.exit_database()
+	for item in translator.presentable_data():
+		print(item)	
+
+	translator.exit_db()
 
 if __name__ == "__main__":
 	main()
