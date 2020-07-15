@@ -1,6 +1,6 @@
 import argparse
 import sys
-from . import database_translator as translator
+from . import db_handler as handler
 
 # sets parser and adds arguments
 parser = argparse.ArgumentParser(description="Notes & Tasker App")
@@ -13,18 +13,18 @@ args = parser.parse_args()
 
 def main():
 	if argument := args.new:
-		translator.add_note(argument)
+		handler.add_note(argument)
 
 	if argument := args.delete:
-		translator.delete_note(argument)
+		handler.delete_note(argument)
 	
 	if argument := args.update:
-		translator.update_note(argument, args.new_content)
+		handler.update_note(argument, args.new_content)
 
-	for item in translator.presentable_data():
+	for item in handler.presentable_data():
 		print(item)	
 
-	translator.exit_db()
+	handler.exit_db()
 
 if __name__ == "__main__":
 	main()

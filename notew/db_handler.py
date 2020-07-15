@@ -1,5 +1,5 @@
-from .tools.database_manager import DatabaseManager
-from .tools.note_class import Note, construct_note
+from .tools.db_manager import DatabaseManager
+from .tools.note_constructor import Note, construct_note
 
 # Initialize database
 db = DatabaseManager()
