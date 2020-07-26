@@ -7,6 +7,10 @@ class DatabaseManager:
 		self.connection = sqlite3.connect(db_path)
 		self.sql_fields = "identity TEXT, content TEXT, unixstamp TIMESTAMP"
 
+		# Generates a table if it doesn't exists
+		table_query = f"CREATE TABLE IF NOT EXISTS {db_table}({self.sql_fields})"
+		self._execute(table_query)
+
 	def __del__(self):
 		""" Closes the database """
 		self.connection.close()
@@ -17,11 +21,6 @@ class DatabaseManager:
 			cursor = self.connection.cursor()
 			cursor.execute(statement)
 			return cursor
-
-	def create_table(self):
-		""" Creates the database if it doesn't exist """
-		query = f"CREATE TABLE IF NOT EXISTS {db_table}({self.sql_fields})"
-		self._execute(query)
 
 	def load_all(self):
 		""" Loads all the items from the database """

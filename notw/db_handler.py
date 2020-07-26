@@ -3,7 +3,6 @@ from .tools.note_constructor import Note, construct_note
 
 # Initialize database
 db = DatabaseManager()
-db.create_table()
 
 # Data modeling
 def model_data():
