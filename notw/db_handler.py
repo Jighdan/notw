@@ -5,8 +5,9 @@ from .tools.note_constructor import Note, construct_note
 db = DatabaseManager()
 db.create_table()
 
-# data modeling
+# Data modeling
 def model_data():
+	""" Structures the data in the database """
 	data = list()
 	for item in db.load_all():
 		identity, content, unixstamp = item
@@ -15,6 +16,7 @@ def model_data():
 	return data
 
 def presentable_data():
+	""" Formats data to a presentable state """
 	full_log = list()
 
 	for index, item in enumerate(model_data()):
@@ -24,19 +26,19 @@ def presentable_data():
 	
 	return full_log
 
-# database speakers
+# Database handlers
 get_identity = lambda index : model_data()[index - 1].identity
 
 def add_note(note_content):
+	""" Handles adding notes to the database """
 	note = construct_note(note_content)
 	db.add(note)
 
 def delete_note(index):
+	""" Handles deleting notes in the database """
 	db.delete(get_identity(index))
 
 def update_note(index, new_content):
+	""" Handles updating notes in the database """
 	db.update(new_content, get_identity(index))
-
-def exit_db():
-	db.__del__()
 	

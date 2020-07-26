@@ -6,10 +6,10 @@ import uuid
 generate_identity = lambda : str(uuid.uuid4())
 generate_unixstamp = lambda : datetime.utcnow()
 
-# note deconstructor
 Note = namedtuple("Note", ["identity", "content", "unixstamp"])
 
 def construct_note(note_content):
+	""" Structures note to (named) tuple """
 	identity = generate_identity()
 	content = note_content
 	unixstamp = generate_unixstamp()
