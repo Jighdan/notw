@@ -1,12 +1,10 @@
-import os
-from pathlib import Path
+import argparse
+import sys
 
-# Directory of the database
-db_dir = str(Path.home())
-# Filename of the database
-db_file = "notes.db"
-# Name of the table containing the notes
-db_table = "allNotes"
+parser = argparse.ArgumentParser(description="Notes & Tasker App")
+parser.add_argument("-n", "--new", type=str, help="Adds a new note")
+parser.add_argument("-r", "--remove", type=int, nargs='*', help="Removes a note")
+parser.add_argument("-u", "--update", type=int, help="Updates a note's content")
+parser.add_argument("-c", "--new_content", type=str, required="--update" in sys.argv)
 
-# Full path of the database
-db_path = os.path.join(db_dir, db_file)
+ARGS = parser.parse_args()

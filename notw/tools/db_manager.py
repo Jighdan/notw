@@ -1,14 +1,14 @@
 import sqlite3
-from .. import db_path, db_table
+from . import DB_TABLENAME, DB_PATHDIR
 
 class DatabaseManager:
 	def __init__(self):
 		""" Loads database """
-		self.connection = sqlite3.connect(db_path)
+		self.connection = sqlite3.connect(DB_PATHDIR)
 		self.sql_fields = "identity TEXT, content TEXT, unixstamp TIMESTAMP"
 
 		# Generates a table if it doesn't exists
-		table_query = f"CREATE TABLE IF NOT EXISTS {db_table}({self.sql_fields})"
+		table_query = f"CREATE TABLE IF NOT EXISTS {DB_TABLENAME}({self.sql_fields})"
 		self._execute(table_query)
 
 	def __del__(self):
@@ -24,7 +24,7 @@ class DatabaseManager:
 
 	def load_all(self):
 		""" Loads all the items from the database """
-		query = f"SELECT * FROM {db_table}"
+		query = f"SELECT * FROM {DB_TABLENAME}"
 		raw_data = self._execute(query)
 		return [list(item) for item in raw_data.fetchall()]
 
@@ -32,7 +32,7 @@ class DatabaseManager:
 	def add(self, data):
 		""" Adds data to the database """
 		query = f"""
-			INSERT INTO {db_table} 
+			INSERT INTO {DB_TABLENAME} 
 			VALUES ('{data.identity}', '{data.content}', '{data.unixstamp}')
 		"""
 		self._execute(query)
@@ -40,12 +40,12 @@ class DatabaseManager:
 
 	def delete(self, data_identity):
 		""" Deletes data from the database """
-		query = f"DELETE FROM {db_table} WHERE identity = '{data_identity}'"
+		query = f"DELETE FROM {DB_TABLENAME} WHERE identity = '{data_identity}'"
 		self._execute(query)
 		self.connection.commit()
 
 	def update(self, new_content, data_identity):
 		""" Updates data from the database """
-		query = f"UPDATE {db_table} SET content = '{new_content}' WHERE IDENTITY = '{data_identity}'"
+		query = f"UPDATE {DB_TABLENAME} SET content = '{new_content}' WHERE IDENTITY = '{data_identity}'"
 		self._execute(query)
 		self.connection.commit()

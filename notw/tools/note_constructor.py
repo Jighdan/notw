@@ -8,10 +8,9 @@ generate_unixstamp = lambda : datetime.utcnow()
 
 Note = namedtuple("Note", ["identity", "content", "unixstamp"])
 
-def construct_note(note_content):
+def construct_note(content):
 	""" Structures note to (named) tuple """
 	identity = generate_identity()
-	content = note_content
 	unixstamp = generate_unixstamp()
 	structured = Note(identity, content, unixstamp)
 	return structured
