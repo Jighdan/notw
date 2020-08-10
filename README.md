@@ -27,7 +27,7 @@ Requires Python>=3.8
 	
 	# (X Represents the note index)
 	# deletes a note
-	$ notw -d X
+	$ notw -r X
 	# updates a note content
 	$ notw -u X "NEW CONTENT HERE"
 ```
